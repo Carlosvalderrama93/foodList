@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Food from "./Food";
+import { FoodContext } from "../other/FoodProvider";
 
-function FoodList({ foodList }) {
+function FoodList() {
+  const { foodList } = useContext(FoodContext);
+
   return (
     <ul>
       {foodList.map((food) => (

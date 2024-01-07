@@ -1,11 +1,14 @@
 import React from "react";
-import FoodList from "./components/FoodList";
-import { foodList } from "./other/foodList";
 
-foodList;
+import FoodList from "./components/FoodList";
+import { FoodProvider } from "./other/FoodProvider";
 
 function App() {
-  return <FoodList foodList={foodList} />;
+  return (
+    <FoodProvider>
+      <FoodList />
+    </FoodProvider>
+  );
 }
 
 export default App;
