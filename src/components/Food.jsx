@@ -41,13 +41,13 @@ function Food({ food }) {
         labelText={"Type"}
         value={currentFood.type}
         name={"type"}
-        onChange={handleChangeFoodProp}
+        event={handleChangeFoodProp}
       />
       <Input
         labelText={"Quantity"}
         value={currentFood.quantity}
         name={"quantity"}
-        onChange={handleChangeFoodProp}
+        event={handleChangeFoodProp}
       />
     </li>
   );
