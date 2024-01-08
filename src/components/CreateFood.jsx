@@ -1,53 +1,65 @@
 import React, { useContext, useState } from "react";
 import Input from "./Input";
-import { FoodContext } from "../other/FoodProvider";
-import createID from "../other/idCreator";
+import { FoodDispatchContext } from "../other/FoodProvider";
+
+const emptyFood = { name: "", type: "", quantity: "" };
 
 function CreateFood() {
-  const basicItemFood = { name: "", type: "", quantity: "" };
-  const [food, setFood] = useState(basicItemFood);
-  const { foodList, setFoodList } = useContext(FoodContext);
+  const [newFood, setNewFood] = useState(emptyFood);
+  const [addFood, setAddFood] = useState(false);
+  const dispatch = useContext(FoodDispatchContext);
 
-  function handleInputChange(e) {
+  function handleInput(e) {
     const { name, value } = e.target;
-    setFood({ ...food, [name]: value });
+    setNewFood({ ...newFood, [name]: value });
   }
 
   function handleSubmit(e) {
+    setNewFood(emptyFood);
     e.preventDefault();
-    const id = createID();
-    setFoodList([{ id, ...food }, ...foodList]);
-    setFood(basicItemFood);
+    dispatch({
+      type: "added",
+      food: newFood,
+    });
+  }
+
+  if (addFood) {
+    return (
+      <form onSubmit={handleSubmit}>
+        <Input
+          labelText={"Name"}
+          type="text"
+          name="name"
+          value={newFood.name}
+          event={handleInput}
+        />
+
+        <Input
+          labelText={"Type"}
+          type="text"
+          name="type"
+          value={newFood.type}
+          event={handleInput}
+        />
+
+        <Input
+          labelText={"Quantity"}
+          type="text"
+          name="quantity"
+          value={newFood.quantity}
+          event={handleInput}
+        />
+
+        <button type="submit">Add</button>
+        <button onClick={() => setAddFood(false)}>Cancel</button>
+      </form>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        labelText={"Name"}
-        type="text"
-        name="name"
-        value={food.name}
-        event={handleInputChange}
-      />
-
-      <Input
-        labelText={"Type"}
-        type="text"
-        name="type"
-        value={food.type}
-        event={handleInputChange}
-      />
-
-      <Input
-        labelText={"Quantity"}
-        type="text"
-        name="quantity"
-        value={food.quantity}
-        event={handleInputChange}
-      />
-
-      <button type="submit">Add Food</button>
-    </form>
+    <>
+      <button onClick={() => setAddFood(true)}>Add another food</button>
+    </>
   );
 }
 

@@ -1,21 +1,25 @@
-import React, { createContext, useEffect, useState } from "react";
-import { foodList as data } from "./foodList";
+import React, { createContext, useEffect, useReducer } from "react";
+import { foodList } from "./foodList";
+import foodReducer from "./foodReducer";
 
 const FoodContext = createContext();
-const defaultData = JSON.parse(localStorage.getItem("data")) ?? data;
+const FoodDispatchContext = createContext(null);
+const defaultData = JSON.parse(localStorage.getItem("data")) ?? foodList;
 
 function FoodProvider({ children }) {
-  const [foodList, setFoodList] = useState(defaultData);
+  const [foods, dispatch] = useReducer(foodReducer, defaultData);
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(foodList));
-  }, [foodList]);
+    localStorage.setItem("data", JSON.stringify(foods));
+  }, [foods]);
 
   return (
-    <FoodContext.Provider value={{ foodList, setFoodList }}>
-      {children}
+    <FoodContext.Provider value={foods}>
+      <FoodDispatchContext.Provider value={dispatch}>
+        {children}
+      </FoodDispatchContext.Provider>
     </FoodContext.Provider>
   );
 }
 
-export { FoodContext, FoodProvider };
+export { FoodContext, FoodDispatchContext, FoodProvider };

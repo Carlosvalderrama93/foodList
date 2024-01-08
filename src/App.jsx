@@ -1,6 +1,6 @@
 import React from "react";
 
-import FoodList from "./components/FoodList";
+import Foods from "./components/Foods";
 import { FoodProvider } from "./other/FoodProvider";
 import CreateFood from "./components/CreateFood";
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <FoodProvider>
       <CreateFood />
-      <FoodList />
+      <Foods />
     </FoodProvider>
   );
 }

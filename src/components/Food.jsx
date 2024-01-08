@@ -1,62 +1,65 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FoodContext } from "../other/FoodProvider";
+import { FoodDispatchContext } from "../other/FoodProvider";
 import Input from "./Input";
 
 function Food({ food }) {
-  const { foodList, setFoodList } = useContext(FoodContext);
   const [currentFood, setCurrentFood] = useState(food);
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useContext(FoodDispatchContext);
 
-  function handleChangeFoodProp(e) {
+  function handleUpdateFood(e) {
     const { name, value } = e.target;
-    const newCurrentFood = {
+    setCurrentFood({
       ...currentFood,
       [name]: value,
-    };
+    });
+  }
 
-    setCurrentFood(newCurrentFood);
-    setIsEditing(true);
+  function handleDeleteFood(id) {
+    dispatch({ type: "deleted", id });
   }
 
   useEffect(() => {
     if (isEditing) {
-      const copyList = foodList.map((foodEl) => {
-        if (foodEl.id === currentFood.id) return currentFood;
-        return foodEl;
+      dispatch({
+        type: "changed",
+        food: currentFood,
       });
-      setFoodList([...copyList]);
-      setIsEditing(false);
     }
   }, [isEditing]);
 
-  function handleDeleteItem(id) {
-    const updatedFoodList = foodList.filter((food) => food.id !== id);
-    setFoodList(updatedFoodList);
+  if (isEditing) {
+    return (
+      <li>
+        <Input
+          labelText={"Name"}
+          value={currentFood.name}
+          name={"name"}
+          event={handleUpdateFood}
+        />
+        <Input
+          labelText={"Type"}
+          value={currentFood.type}
+          name={"type"}
+          event={handleUpdateFood}
+        />
+        <Input
+          labelText={"Quantity"}
+          value={currentFood.quantity}
+          name={"quantity"}
+          event={handleUpdateFood}
+        />
+        <button onClick={() => setIsEditing(false)}>Save</button>
+      </li>
+    );
   }
 
   return (
     <li>
-      <Input
-        labelText={"Name"}
-        value={currentFood.name}
-        name={"name"}
-        event={handleChangeFoodProp}
-      />
-      <Input
-        labelText={"Type"}
-        value={currentFood.type}
-        name={"type"}
-        event={handleChangeFoodProp}
-      />
-      <Input
-        labelText={"Quantity"}
-        value={currentFood.quantity}
-        name={"quantity"}
-        event={handleChangeFoodProp}
-      />
-      <button onClick={() => handleDeleteItem(currentFood.id)}>
-        Delete Food
-      </button>
+      <h3>{currentFood.name}</h3>
+      {currentFood.type} - {currentFood.quantity}
+      <button onClick={() => handleDeleteFood(currentFood.id)}>Delete</button>
+      <button onClick={() => setIsEditing(true)}>Edit</button>
     </li>
   );
 }
