@@ -6,11 +6,11 @@ function FoodList() {
   const { foodList } = useContext(FoodContext);
 
   return (
-    <ul>
+    <ol>
       {foodList.map((food) => (
         <Food food={food} />
       ))}
-    </ul>
+    </ol>
   );
 }
 
