@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Input from "./Input";
 import { FoodDispatchContext } from "../other/FoodProvider";
 
-const emptyFood = { name: "", type: "", quantity: "" };
+const emptyFood = { name: "", type: "", quantity: 1 };
 
 function CreateFood() {
   const [newFood, setNewFood] = useState(emptyFood);
@@ -11,12 +11,16 @@ function CreateFood() {
 
   function handleInput(e) {
     const { name, value } = e.target;
-    setNewFood({ ...newFood, [name]: value });
+    setNewFood({ ...newFood, [name]: value.trim() });
   }
 
   function handleSubmit(e) {
     setNewFood(emptyFood);
     e.preventDefault();
+    if (newFood.name === "" || !newFood.quantity) {
+      console.error("Should not be empty");
+      return;
+    }
     dispatch({
       type: "added",
       food: newFood,
@@ -27,27 +31,34 @@ function CreateFood() {
     return (
       <form onSubmit={handleSubmit}>
         <Input
+          placeholder={"Food Name"}
+          required={true}
           labelText={"Name"}
           type="text"
           name="name"
           value={newFood.name}
-          event={handleInput}
+          onChange={handleInput}
         />
 
-        <Input
-          labelText={"Type"}
-          type="text"
+        <select
+          id="type"
           name="type"
           value={newFood.type}
-          event={handleInput}
-        />
+          onChange={handleInput}
+        >
+          <option value="food">Food</option>
+          <option value="drink">Drink</option>
+        </select>
 
         <Input
+          required={true}
           labelText={"Quantity"}
-          type="text"
+          type="number"
           name="quantity"
           value={newFood.quantity}
-          event={handleInput}
+          onChange={handleInput}
+          min="0"
+          max="100"
         />
 
         <button type="submit">Add</button>
@@ -58,7 +69,7 @@ function CreateFood() {
 
   return (
     <>
-      <button onClick={() => setAddFood(true)}>Add another food</button>
+      <button onClick={() => setAddFood(true)}>Add Food</button>
     </>
   );
 }

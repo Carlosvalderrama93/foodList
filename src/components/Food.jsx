@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FoodDispatchContext } from "../other/FoodProvider";
 import Input from "./Input";
+import Select from "./Select";
+import Button from "./Button";
+import Title from "./Title";
 
 function Food({ food }) {
   const [currentFood, setCurrentFood] = useState(food);
+  const { name, type, quantity, id } = currentFood;
   const [isEditing, setIsEditing] = useState(false);
   const [saveChange, setSaveChange] = useState(false);
   const dispatch = useContext(FoodDispatchContext);
@@ -25,6 +29,11 @@ function Food({ food }) {
   }
 
   useEffect(() => {
+    if (currentFood.name === "") {
+      console.error("Should not be empty");
+      return;
+    }
+
     if (saveChange) {
       dispatch({
         type: "changed",
@@ -39,22 +48,28 @@ function Food({ food }) {
     return (
       <li>
         <Input
-          labelText={"Name"}
-          value={currentFood.name}
-          name={"name"}
-          event={handleUpdateFood}
+          required={true}
+          labelText={name}
+          value={name}
+          name={name}
+          onChange={handleUpdateFood}
+        />
+        <Select
+          labelText={type}
+          name={type}
+          value={type}
+          onChange={handleUpdateFood}
+          options={["Food", "Drink"]}
         />
         <Input
-          labelText={"Type"}
-          value={currentFood.type}
-          name={"type"}
-          event={handleUpdateFood}
-        />
-        <Input
-          labelText={"Quantity"}
-          value={currentFood.quantity}
+          required={true}
+          labelText={quantity}
+          value={quantity}
+          type={"number"}
           name={"quantity"}
-          event={handleUpdateFood}
+          onChange={handleUpdateFood}
+          min="0"
+          max="100"
         />
         <button onClick={() => setSaveChange(true)}>Save</button>
       </li>
@@ -63,15 +78,16 @@ function Food({ food }) {
 
   return (
     <li>
-      <h3>{currentFood.name}</h3>
-      {currentFood.type} - {currentFood.quantity}
-      <button onClick={() => handleDeleteFood(currentFood.id)}>Delete</button>
-      <button onClick={() => setIsEditing(true)}>Edit</button>
-      <button onClick={() => handleSort("sortedName")}>Sort by name</button>
-      <button onClick={() => handleSort("sortedType")}>Sort by type</button>
-      <button onClick={() => handleSort("sortedQuantity")}>
-        Sort by quantity
-      </button>
+      <Title type={"2"}>{name}</Title>
+      {type} - {quantity}
+      <Button onClick={() => handleDeleteFood(id)} text={"Delete"} />
+      <Button onClick={() => setIsEditing(true)} text={"Edit"} />
+      <Button onClick={() => handleSort("sortedName")} text={"Sort by name"} />
+      <Button onClick={() => handleSort("sortedType")} text={"Sort by type"} />
+      <Button
+        onClick={() => handleSort("sortedQuantity")}
+        text={"Sort by quantity"}
+      />
     </li>
   );
 }

@@ -1,10 +1,31 @@
 import React from "react";
 
-function Input({ value, name, event, labelText, type, placeholder }) {
+function Input({
+  value,
+  name,
+  onChange,
+  onClick,
+  labelText,
+  type,
+  placeholder,
+  min,
+  max,
+  required,
+}) {
   return (
-    <label>
+    <label for={name ?? ""}>
       {labelText}
-      <input value={value} name={name} onChange={event} />
+      <input
+        placeholder={placeholder ?? ""}
+        required={required ?? false}
+        value={value ?? ""}
+        name={name ?? ""}
+        onChange={onChange}
+        onClick={onClick}
+        type={type ?? "text"}
+        min={min ?? undefined}
+        max={max ?? undefined}
+      />
     </label>
   );
 }
