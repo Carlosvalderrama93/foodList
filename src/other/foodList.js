@@ -27,7 +27,7 @@ export const foodList = [
   { id: "drk_6", name: "Jugos", type: "drink", quantity: 69 },
   { id: "drk_7", name: "Kumis", type: "drink", quantity: 6 },
   { id: "drk_8", name: "Limonada de Coco", type: "drink", quantity: 36 },
-  { id: "drk_9", name: "Piña (Pineapple)", quantity: 10 },
+  { id: "drk_9", name: "Piña (Pineapple)", type: "drink",quantity: 10 },
   { id: "drk_10", name: "Coco Loco", type: "drink", quantity: 18 },
   { id: "drk_11", name: "Lulo", type: "drink", quantity: 16 },
   { id: "drk_12", name: "Guanábana", type: "drink", quantity: 30 },
@@ -55,3 +55,7 @@ export const foodList = [
     quantity: 17,
   },
 ];
+
+// export const foodList = [
+//   { id: "fd_1", name: "Arepa", type: "food", quantity: 42 },
+// ];
