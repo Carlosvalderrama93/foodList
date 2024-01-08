@@ -4,7 +4,8 @@ import { FoodContext } from "../other/FoodProvider";
 import createID from "../other/idCreator";
 
 function CreateFood() {
-  const [food, setFood] = useState({});
+  const basicItemFood = { name: "", type: "", quantity: "" };
+  const [food, setFood] = useState(basicItemFood);
   const { foodList, setFoodList } = useContext(FoodContext);
 
   function handleInputChange(e) {
@@ -16,7 +17,7 @@ function CreateFood() {
     e.preventDefault();
     const id = createID();
     setFoodList([{ id, ...food }, ...foodList]);
-    setFood({});
+    setFood(basicItemFood);
   }
 
   return (
