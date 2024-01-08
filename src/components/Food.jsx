@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FoodContext } from "../other/FoodProvider";
+import Input from "./Input";
 
 function Food({ food }) {
   const { foodList, setFoodList } = useContext(FoodContext);
@@ -7,10 +8,10 @@ function Food({ food }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleChangeFoodProp(e) {
-    const key = e.target.attributes.property.value;
+    const { name, value } = e.target;
     const newCurrentFood = {
       ...currentFood,
-      [key]: e.target.value,
+      [name]: value,
     };
 
     setCurrentFood(newCurrentFood);
@@ -30,30 +31,24 @@ function Food({ food }) {
 
   return (
     <li key={currentFood.id}>
-      <label>
-        Name:
-        <input
-          value={currentFood.name}
-          property={"name"}
-          onChange={handleChangeFoodProp}
-        />
-      </label>
-      <label>
-        Type:
-        <input
-          value={currentFood.type}
-          property={"type"}
-          onChange={handleChangeFoodProp}
-        />
-      </label>
-      <label>
-        Quantity:
-        <input
-          value={currentFood.quantity}
-          property={"quantity"}
-          onChange={handleChangeFoodProp}
-        />
-      </label>
+      <Input
+        labelText={"Name"}
+        value={currentFood.name}
+        name={"name"}
+        event={handleChangeFoodProp}
+      />
+      <Input
+        labelText={"Type"}
+        value={currentFood.type}
+        name={"type"}
+        onChange={handleChangeFoodProp}
+      />
+      <Input
+        labelText={"Quantity"}
+        value={currentFood.quantity}
+        name={"quantity"}
+        onChange={handleChangeFoodProp}
+      />
     </li>
   );
 }
