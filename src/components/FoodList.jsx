@@ -8,7 +8,7 @@ function FoodList() {
   return (
     <ol>
       {foodList.map((food) => (
-        <Food food={food} />
+        <Food food={food} key={food.id} />
       ))}
     </ol>
   );

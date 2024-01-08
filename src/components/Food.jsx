@@ -30,7 +30,7 @@ function Food({ food }) {
   }, [isEditing]);
 
   return (
-    <li key={currentFood.id}>
+    <li>
       <Input
         labelText={"Name"}
         value={currentFood.name}
