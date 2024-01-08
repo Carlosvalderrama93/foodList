@@ -5,6 +5,7 @@ import Input from "./Input";
 function Food({ food }) {
   const [currentFood, setCurrentFood] = useState(food);
   const [isEditing, setIsEditing] = useState(false);
+  const [saveChange, setSaveChange] = useState(false);
   const dispatch = useContext(FoodDispatchContext);
 
   function handleUpdateFood(e) {
@@ -19,14 +20,20 @@ function Food({ food }) {
     dispatch({ type: "deleted", id });
   }
 
+  function handleSort(sortBy) {
+    dispatch({ type: sortBy });
+  }
+
   useEffect(() => {
-    if (isEditing) {
+    if (saveChange) {
       dispatch({
         type: "changed",
         food: currentFood,
       });
     }
-  }, [isEditing]);
+    setIsEditing(false);
+    setSaveChange(false);
+  }, [saveChange]);
 
   if (isEditing) {
     return (
@@ -49,7 +56,7 @@ function Food({ food }) {
           name={"quantity"}
           event={handleUpdateFood}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <button onClick={() => setSaveChange(true)}>Save</button>
       </li>
     );
   }
@@ -60,6 +67,11 @@ function Food({ food }) {
       {currentFood.type} - {currentFood.quantity}
       <button onClick={() => handleDeleteFood(currentFood.id)}>Delete</button>
       <button onClick={() => setIsEditing(true)}>Edit</button>
+      <button onClick={() => handleSort("sortedName")}>Sort by name</button>
+      <button onClick={() => handleSort("sortedType")}>Sort by type</button>
+      <button onClick={() => handleSort("sortedQuantity")}>
+        Sort by quantity
+      </button>
     </li>
   );
 }

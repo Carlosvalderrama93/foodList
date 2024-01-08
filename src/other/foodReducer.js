@@ -1,3 +1,4 @@
+import foodSorter from "./foodSorter";
 import createID from "./idCreator";
 
 export default function foodReducer(foods, action) {
@@ -21,6 +22,15 @@ export default function foodReducer(foods, action) {
     }
     case "deleted": {
       return foods.filter((food) => food.id !== action.id);
+    }
+    case "sortedName": {
+      return foodSorter(foods, "name");
+    }
+    case "sortedType": {
+      return foodSorter(foods, "type");
+    }
+    case "sortedQuantity": {
+      return foodSorter(foods, "quantity");
     }
     default: {
       throw Error("Unknown action: " + action.type);
