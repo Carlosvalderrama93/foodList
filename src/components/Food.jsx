@@ -29,6 +29,11 @@ function Food({ food }) {
     }
   }, [isEditing]);
 
+  function handleDeleteItem(id) {
+    const updatedFoodList = foodList.filter((food) => food.id !== id);
+    setFoodList(updatedFoodList);
+  }
+
   return (
     <li>
       <Input
@@ -49,6 +54,9 @@ function Food({ food }) {
         name={"quantity"}
         event={handleChangeFoodProp}
       />
+      <button onClick={() => handleDeleteItem(currentFood.id)}>
+        Delete Food
+      </button>
     </li>
   );
 }
