@@ -4,6 +4,7 @@ import Input from "./Input";
 import Select from "./Select";
 import Button from "./Button";
 import Title from "./Title";
+import Paragraph from "./Paragraph";
 
 function Food({ food }) {
   const [currentFood, setCurrentFood] = useState(food);
@@ -24,10 +25,6 @@ function Food({ food }) {
     dispatch({ type: "deleted", id });
   }
 
-  function handleSort(sortBy) {
-    dispatch({ type: sortBy });
-  }
-
   useEffect(() => {
     if (currentFood.name === "") {
       console.error("Should not be empty");
@@ -46,24 +43,22 @@ function Food({ food }) {
 
   if (isEditing) {
     return (
-      <li>
+      <div className="container">
         <Input
+          className={"pd-0"}
           required={true}
-          labelText={name}
           value={name}
-          name={name}
+          name={"name"}
           onChange={handleUpdateFood}
         />
         <Select
-          labelText={type}
-          name={type}
+          name={"type"}
           value={type}
-          onChange={handleUpdateFood}
-          options={["Food", "Drink"]}
+          event={handleUpdateFood}
+          options={[{ text: "Food" }, { text: "Drink" }]}
         />
         <Input
           required={true}
-          labelText={quantity}
           value={quantity}
           type={"number"}
           name={"quantity"}
@@ -71,24 +66,33 @@ function Food({ food }) {
           min="0"
           max="100"
         />
-        <button onClick={() => setSaveChange(true)}>Save</button>
-      </li>
+        <Button
+          className={"button-1"}
+          onClick={() => setSaveChange(true)}
+          text={"Save"}
+        />
+      </div>
     );
   }
 
   return (
-    <li>
-      <Title type={"2"}>{name}</Title>
-      {type} - {quantity}
-      <Button onClick={() => handleDeleteFood(id)} text={"Delete"} />
-      <Button onClick={() => setIsEditing(true)} text={"Edit"} />
-      <Button onClick={() => handleSort("sortedName")} text={"Sort by name"} />
-      <Button onClick={() => handleSort("sortedType")} text={"Sort by type"} />
-      <Button
-        onClick={() => handleSort("sortedQuantity")}
-        text={"Sort by quantity"}
-      />
-    </li>
+    <div className="container">
+      <Title type={"4"}>{name}</Title>
+      <Paragraph>{type}</Paragraph>
+      <Paragraph>{quantity}</Paragraph>
+      <div>
+        <Button
+          className={"button-2"}
+          onClick={() => handleDeleteFood(id)}
+          text={"Delete"}
+        />
+        <Button
+          className={"button-2"}
+          onClick={() => setIsEditing(true)}
+          text={"Edit"}
+        />
+      </div>
+    </div>
   );
 }
 

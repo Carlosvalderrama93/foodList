@@ -1,28 +1,29 @@
 import React from "react";
 import "../styles/title.css";
+import "../styles/tachynons/universal.css";
 
-function Title({ type, children }) {
+function Title({ type, children, className }) {
   switch (type) {
     case "1": {
-      return <h1>{children ?? ""}</h1>;
+      return <h1 className={className}>{children ?? ""}</h1>;
     }
     case "2": {
-      return <h2>{children ?? ""}</h2>;
+      return <h2 className={className}>{children ?? ""}</h2>;
     }
     case "3": {
-      return <h3>{children ?? ""}</h3>;
+      return <h3 className={className}>{children ?? ""}</h3>;
     }
     case "4": {
-      return <h4>{children ?? ""}</h4>;
+      return <h4 className={className}>{children ?? ""}</h4>;
     }
     case "5": {
-      return <h5>{children ?? ""}</h5>;
+      return <h5 className={className}>{children ?? ""}</h5>;
     }
     case "6": {
-      return <h6>{children ?? ""}</h6>;
+      return <h6 className={className}>{children ?? ""}</h6>;
     }
     default:
-      return <p>{children ?? ""}</p>;
+      return <p className={className}>{children ?? ""}</p>;
   }
 }
 

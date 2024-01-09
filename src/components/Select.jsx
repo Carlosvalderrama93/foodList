@@ -1,14 +1,14 @@
 import React from "react";
 
-function Select({ labelText, name, value, onChange, options }) {
+function Select({ labelText, name, value, event, options }) {
   return (
-    <label for={name ?? ""}>
-      {labelText}
-      <select name={name ?? ""} value={value ?? ""} onChange={onChange}>
+    <label>
+      {labelText ?? ""}
+      <select name={name ?? ""} value={value ?? ""} onChange={(e) => event(e)}>
         {options.map((option, index) => {
           return (
-            <option key={index} value={option}>
-              {option}
+            <option key={index} value={option.sortBy}>
+              {option.text}
             </option>
           );
         })}

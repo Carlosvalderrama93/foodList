@@ -11,16 +11,18 @@ function Input({
   min,
   max,
   required,
+  className,
 }) {
   return (
     <label for={name ?? ""}>
-      {labelText}
+      {labelText ?? ""}
       <input
+        className={className}
         placeholder={placeholder ?? ""}
         required={required ?? false}
         value={value ?? ""}
         name={name ?? ""}
-        onChange={onChange}
+        onChange={(e) => onChange(e)}
         onClick={onClick}
         type={type ?? "text"}
         min={min ?? undefined}

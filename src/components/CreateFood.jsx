@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import Input from "./Input";
 import { FoodDispatchContext } from "../other/FoodProvider";
+import Button from "./Button";
+import Select from "./Select";
 
-const emptyFood = { name: "", type: "", quantity: 1 };
+const emptyFood = { name: "", type: "Food", quantity: 1 };
 
 function CreateFood() {
   const [newFood, setNewFood] = useState(emptyFood);
@@ -11,11 +13,12 @@ function CreateFood() {
 
   function handleInput(e) {
     const { name, value } = e.target;
-    setNewFood({ ...newFood, [name]: value.trim() });
+    setNewFood({ ...newFood, [name]: value });
   }
 
   function handleSubmit(e) {
     setNewFood(emptyFood);
+    setAddFood(false);
     e.preventDefault();
     if (newFood.name === "" || !newFood.quantity) {
       console.error("Should not be empty");
@@ -33,26 +36,21 @@ function CreateFood() {
         <Input
           placeholder={"Food Name"}
           required={true}
-          labelText={"Name"}
           type="text"
           name="name"
           value={newFood.name}
           onChange={handleInput}
         />
 
-        <select
-          id="type"
-          name="type"
+        <Select
+          name={"type"}
           value={newFood.type}
-          onChange={handleInput}
-        >
-          <option value="food">Food</option>
-          <option value="drink">Drink</option>
-        </select>
+          event={handleInput}
+          options={[{ text: "Food" }, { text: "Drink" }]}
+        />
 
         <Input
           required={true}
-          labelText={"Quantity"}
           type="number"
           name="quantity"
           value={newFood.quantity}
@@ -61,16 +59,22 @@ function CreateFood() {
           max="100"
         />
 
-        <button type="submit">Add</button>
-        <button onClick={() => setAddFood(false)}>Cancel</button>
+        <Button className={"button-1"} type="submit" text={"Add"} />
+        <Button
+          className={"button-1"}
+          onClick={() => setAddFood(false)}
+          text={"Cancel"}
+        />
       </form>
     );
   }
 
   return (
-    <>
-      <button onClick={() => setAddFood(true)}>Add Food</button>
-    </>
+    <Button
+      className={"button-1"}
+      onClick={() => setAddFood(true)}
+      text={"Add Food"}
+    />
   );
 }
 
