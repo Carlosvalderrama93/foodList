@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/title.css";
-import "../styles/tachynons/universal.css";
 
 function Title({ type, children, className }) {
   switch (type) {

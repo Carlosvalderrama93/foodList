@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import { FoodDispatchContext } from "../other/FoodProvider";
-import Input from "./Input";
+import Paragraph from "./Paragraph";
 import Select from "./Select";
 import Button from "./Button";
+import Input from "./Input";
 import Title from "./Title";
-import Paragraph from "./Paragraph";
 
 function Food({ food }) {
   const [currentFood, setCurrentFood] = useState(food);
@@ -45,17 +46,18 @@ function Food({ food }) {
     return (
       <div className="container">
         <Input
-          className={"pd-0"}
           required={true}
           value={name}
           name={"name"}
           onChange={handleUpdateFood}
+          className={"ml-10"}
         />
         <Select
           name={"type"}
           value={type}
           event={handleUpdateFood}
           options={[{ text: "Food" }, { text: "Drink" }]}
+          classLabel={"m-a"}
         />
         <Input
           required={true}
@@ -65,6 +67,7 @@ function Food({ food }) {
           onChange={handleUpdateFood}
           min="0"
           max="100"
+          className={"ta-c m-a"}
         />
         <Button
           className={"button-1"}
@@ -77,10 +80,12 @@ function Food({ food }) {
 
   return (
     <div className="container">
-      <Title type={"4"}>{name}</Title>
+      <Title className={"name-food"} type={"4"}>
+        {name}
+      </Title>
       <Paragraph>{type}</Paragraph>
       <Paragraph>{quantity}</Paragraph>
-      <div>
+      <div className="flex-center">
         <Button
           className={"button-2"}
           onClick={() => handleDeleteFood(id)}

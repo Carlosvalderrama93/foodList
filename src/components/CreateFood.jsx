@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
-import Input from "./Input";
+
 import { FoodDispatchContext } from "../other/FoodProvider";
+import Input from "./Input";
 import Button from "./Button";
 import Select from "./Select";
+import Title from "./Title";
 
 const emptyFood = { name: "", type: "Food", quantity: 1 };
 
@@ -32,49 +34,59 @@ function CreateFood() {
 
   if (addFood) {
     return (
-      <form onSubmit={handleSubmit}>
-        <Input
-          placeholder={"Food Name"}
-          required={true}
-          type="text"
-          name="name"
-          value={newFood.name}
-          onChange={handleInput}
-        />
+      <div className="mw-b">
+        <Title type={"2"}>Create</Title>
+        <form className="create-food" onSubmit={handleSubmit}>
+          <Input
+            placeholder={"Food Name"}
+            required={true}
+            type="text"
+            name="name"
+            value={newFood.name}
+            onChange={handleInput}
+            className={"w-m"}
+          />
 
-        <Select
-          name={"type"}
-          value={newFood.type}
-          event={handleInput}
-          options={[{ text: "Food" }, { text: "Drink" }]}
-        />
+          <Input
+            required={true}
+            type="number"
+            name="quantity"
+            value={newFood.quantity}
+            onChange={handleInput}
+            min="0"
+            max="100"
+            className={"input-number w-m"}
+            classLabel={"w-m"}
+          />
 
-        <Input
-          required={true}
-          type="number"
-          name="quantity"
-          value={newFood.quantity}
-          onChange={handleInput}
-          min="0"
-          max="100"
-        />
+          <Select
+            name={"type"}
+            value={newFood.type}
+            event={handleInput}
+            options={[{ text: "Food" }, { text: "Drink" }]}
+            className={"w-m"}
+          />
 
-        <Button className={"button-1"} type="submit" text={"Add"} />
-        <Button
-          className={"button-1"}
-          onClick={() => setAddFood(false)}
-          text={"Cancel"}
-        />
-      </form>
+          <Button className={"button-1 w-m"} type="submit" text={"Add"} />
+          <Button
+            className={"button-1 w-m"}
+            onClick={() => setAddFood(false)}
+            text={"Cancel"}
+          />
+        </form>
+      </div>
     );
   }
 
   return (
-    <Button
-      className={"button-1"}
-      onClick={() => setAddFood(true)}
-      text={"Add Food"}
-    />
+    <div>
+      <Title type={"2"}>Create</Title>
+      <Button
+        className={"button-1 w-m"}
+        onClick={() => setAddFood(true)}
+        text={"Add"}
+      />
+    </div>
   );
 }
 

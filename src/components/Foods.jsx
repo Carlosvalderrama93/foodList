@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import Food from "./Food";
+
 import { FoodContext } from "../other/FoodProvider";
 import Title from "./Title";
-
-import "../styles/foods.css";
+import Food from "./Food";
 
 function Foods() {
   const foods = useContext(FoodContext);
@@ -11,10 +10,10 @@ function Foods() {
   return (
     <section>
       <div className="container">
-        <Title className={"fs-3"} type={"2"}>
+        <Title className={"fs-3 name-food"} type={"2"}>
           Food
         </Title>
-        <Title className={"fs-3"} type={"2"}>
+        <Title className={"fs-3 ta-c"} type={"2"}>
           Type
         </Title>
         <Title className={"fs-3"} type={"2"}>

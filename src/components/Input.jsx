@@ -12,9 +12,10 @@ function Input({
   max,
   required,
   className,
+  classLabel,
 }) {
   return (
-    <label for={name ?? ""}>
+    <label className={classLabel}>
       {labelText ?? ""}
       <input
         className={className}

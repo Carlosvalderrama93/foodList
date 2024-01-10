@@ -1,14 +1,67 @@
+@import url("styles/button.css");
+@import url("styles/foods.css");
+@import url("styles/input.css");
+@import url("styles/select.css");
+@import url("styles/sidebar.css");
+@import url("styles/title.css");
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: light dark;
+
   color: rgba(255, 255, 255, 0.87);
   background-color: #111827;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+p {
+  padding: 0 18px;
+  text-align: center;
+}
+.pd-0 {
+  padding: 0;
+}
+
+.m-a {
+  margin: auto;
+}
+
+.ta-c {
+  text-align: center;
+}
+
+.app {
+  margin: 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.create-food {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w-s {
+  width: 80px;
+}
+
+.w-m {
+  width: 110px;
+}
+
+.w-b {
+  width: 200px;
+}
+
+.mw-b {
+  min-width: 200px;
+}
+
+.ml-10 {
+  margin-left: -10px;
 }

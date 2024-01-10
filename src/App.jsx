@@ -1,19 +1,20 @@
 import React from "react";
 
 import { FoodProvider } from "./other/FoodProvider";
-import Sidebar from "./components/Sidebar";
+import CreateFood from "./components/CreateFood";
+import SortFoods from "./components/SortFoods";
 import Foods from "./components/Foods";
 import "./index.css";
 
 function App() {
   return (
     <FoodProvider>
-      <>
-        <Sidebar />
+      <div className="app">
+        <SortFoods />
         {/* <button onClick={() => localStorage.clear()}>Clear LS</button> */}
-        {/* <CreateFood /> */}
         <Foods />
-      </>
+        <CreateFood />
+      </div>
     </FoodProvider>
   );
 }

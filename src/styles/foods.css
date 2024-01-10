@@ -1,10 +1,20 @@
 .container {
+  justify-content: space-evenly;
   display: grid;
   grid-template-columns: 40% 15% 10% 30%;
   box-sizing: border-box;
   align-items: center;
-  max-width: 800px;
+  min-width: 900px;
   margin: auto;
   padding: 0 10px;
   border-bottom: 1px solid #444b57;
+}
+
+.name-food {
+  justify-self: left;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
 }
